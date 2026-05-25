@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>Saturn Card</title>
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  width:100%;
+  min-height:100vh;
+  overflow-x:hidden;
+  overflow-y:auto;
+
+  background:#0B3F4C;
+
+  font-family:"Helvetica Neue",sans-serif;
+  color:#E8ECEB;
+}
+
+/* MAIN */
+
+.planet-card{
+
+  width:100%;
+  height:100vh;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  padding:0 8vw;
+
+  position:relative;
+}
+
+/* TOP NAV */
+
+.system-nav{
+
+  position:absolute;
+
+  top:42px;
+  left:52px;
+
+  display:flex;
+  align-items:center;
+
+  gap:12px;
+
+  opacity:0.42;
+
+  cursor:pointer;
+
+  transition:0.3s ease;
+
+  text-decoration:none;
+
+  color:#E8ECEB;
+}
+
+.system-nav:hover{
+
+  opacity:1;
+
+  transform:translateX(-2px);
+}
+
+/* DOT */
+
+.nav-dot{
+
+  width:8px;
+  height:8px;
+
+  border:1px solid rgba(255,255,255,0.75);
+
+  border-radius:50%;
+}
+
+/* LINE */
+
+.nav-line{
+
+  width:32px;
+  height:1px;
+
+  background:rgba(255,255,255,0.25);
+}
+
+/* TEXT */
+
+.nav-text{
+
+  font-size:11px;
+
+  letter-spacing:3px;
+
+  font-weight:300;
+}
+
+/* LEFT */
+
+.planet-visual{
+
+  width:45%;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+/* 3D CONTAINER */
+
+#planet-container{
+
+  width:420px;
+  height:420px;
+
+  position:relative;
+}
+
+/* ORBIT RING */
+
+#planet-container::after{
+
+  content:"";
+
+  position:absolute;
+
+  inset:-35px;
+
+  border:1px solid rgba(255,255,255,0.08);
+
+  border-radius:50%;
+
+  pointer-events:none;
+}
+
+/* RIGHT */
+
+.planet-content{
+
+  width:38%;
+
+  display:flex;
+  flex-direction:column;
+
+  gap:18px;
+}
+
+/* LABEL */
+
+.archive-label{
+
+  font-size:12px;
+
+  letter-spacing:3px;
+
+  opacity:0.45;
+}
+
+/* TITLE */
+
+h1{
+
+  font-size:82px;
+
+  letter-spacing:10px;
+
+  font-weight:200;
+}
+
+/* SUBTITLE */
+
+h2{
+
+  font-size:24px;
+
+  font-weight:300;
+
+  color:#7EC4CF;
+}
+
+/* DESCRIPTION */
+
+.planet-description{
+
+  width:80%;
+
+  line-height:1.7;
+
+  font-size:17px;
+
+  opacity:0.92;
+}
+
+/* DATA */
+
+.planet-data{
+
+  margin-top:10px;
+
+  padding-top:20px;
+
+  border-top:1px solid rgba(255,255,255,0.08);
+
+  display:flex;
+  flex-direction:column;
+
+  gap:12px;
+}
+
+.planet-data p{
+
+  font-size:14px;
+
+  letter-spacing:1px;
+
+  opacity:0.8;
+}
+
+/* BUTTON */
+
+.enter-btn{
+
+  align-self:flex-end;
+
+  margin-top:28px;
+
+  position:relative;
+
+  width:229px;
+  height:75px;
+
+  border:none;
+
+  background:transparent;
+
+  cursor:pointer;
+
+  transition:0.12s ease;
+
+  filter:drop-shadow(
+    0 8px 12px rgba(0,0,0,0.16)
+  );
+}
+
+/* OUTER RECT */
+
+.enter-btn::before{
+
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  background:#00495B;
+
+  border-radius:20px;
+
+  z-index:0;
+}
+
+/* INNER RECT */
+
+.enter-btn::after{
+
+  content:"";
+
+  position:absolute;
+
+  width:200px;
+  height:57px;
+
+  left:50%;
+  top:50%;
+
+  transform:translate(-50%,-50%);
+
+  background:#003F4F;
+
+  border-radius:19px;
+
+  z-index:1;
+}
+
+/* TEXT */
+
+.enter-btn span{
+
+  position:relative;
+
+  z-index:2;
+
+  width:100%;
+  height:100%;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  color:#F4EFE7;
+
+  font-size:25px;
+
+  font-family:Georgia,serif;
+
+  font-weight:400;
+}
+
+/* PRESS EFFECT */
+
+.enter-btn:active{
+
+  transform:translateY(3px);
+
+  filter:drop-shadow(
+    0 4px 6px rgba(0,0,0,0.14)
+  );
+}
+
+/* LEARN MORE */
+
+.learn-more{
+
+  position:absolute;
+
+  bottom:32px;
+
+  left:50%;
+
+  transform:translateX(-50%);
+
+  font-size:12px;
+
+  letter-spacing:4px;
+
+  opacity:0.6;
+}
+
+/* DETAIL PAGE AREA */
+
+.detail-page{
+  width:100%;
+  height:100vh;
+}
+
+.detail-frame{
+  width:100%;
+  height:100%;
+  border:none;
+  display:block;
+}
+
+</style>
+
+<!-- IMPORT MAP -->
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
+  }
+}
+</script>
+
+</head>
+
+<body>
+
+<section class="planet-card">
+
+  <!-- TOP NAV -->
+
+  <a href="index.html" class="system-nav">
+
+    <div class="nav-dot"></div>
+
+    <div class="nav-line"></div>
+
+    <div class="nav-text">
+      SOL SYSTEM ARCHIVE
+    </div>
+
+  </a>
+
+  <!-- LEFT -->
+
+  <div class="planet-visual">
+
+    <div id="planet-container"></div>
+
+  </div>
+
+  <!-- RIGHT -->
+
+  <div class="planet-content">
+
+    <p class="archive-label">
+      SOL SYSTEM / 06
+    </p>
+
+    <h1>SATURN</h1>
+
+    <h2>The Ringed Planet</h2>
+
+    <p class="planet-description">
+      A giant planet famous for its beautiful rings.
+    </p>
+
+    <div class="planet-data">
+
+      <p>Saturn has shiny rings around it.</p>
+
+      <p>Its rings are made of ice and rock.</p>
+
+      <p>Saturn has soft cloud stripes.</p>
+
+      <p>One Saturn day is about 10.7 hours long.</p>
+
+      <p>Saturn takes almost 30 Earth years to go around the Sun.</p>
+
+    </div>
+
+    <button class="enter-btn">
+      <span>Enter Game</span>
+    </button>
+
+  </div>
+
+  <!-- BOTTOM -->
+
+  <div class="learn-more">
+    LEARN MORE ↓
+  </div>
+
+</section>
+
+<!-- 第二屏：这里连接你的详情页 index.html -->
+<section class="detail-page">
+  <iframe src="index.html" class="detail-frame"></iframe>
+</section>
+
+<!-- THREE JS -->
+
+<script type="module">
+
+import * as THREE from 'three';
+
+import { GLTFLoader } from
+'https://unpkg.com/three@0.160.0/examples/jsm/loaders/GLTFLoader.js';
+
+/* SCENE */
+
+const scene = new THREE.Scene();
+
+/* CAMERA */
+
+const camera = new THREE.PerspectiveCamera(
+  45,
+  1,
+  0.1,
+  1000
+);
+
+camera.position.set(0,0,8);
+
+/* RENDERER */
+
+const renderer = new THREE.WebGLRenderer({
+  alpha:true,
+  antialias:true
+});
+
+renderer.setSize(420,420);
+
+renderer.setPixelRatio(window.devicePixelRatio);
+
+document
+  .getElementById('planet-container')
+  .appendChild(renderer.domElement);
+
+/* LIGHT */
+
+const ambientLight =
+new THREE.AmbientLight(
+  0xffffff,
+  2
+);
+
+scene.add(ambientLight);
+
+const directionalLight =
+new THREE.DirectionalLight(
+  0xffffff,
+  3
+);
+
+directionalLight.position.set(5,5,5);
+
+scene.add(directionalLight);
+
+/* MODEL */
+
+const loader = new GLTFLoader();
+
+let planet;
+
+/* ROTATION GROUP */
+
+const planetGroup = new THREE.Group();
+
+scene.add(planetGroup);
+
+/* LOAD MODEL */
+
+loader.load(
+
+  'assets/Model5/scene.gltf',
+
+  (gltf) => {
+
+    planet = gltf.scene;
+
+    /* MODEL SIZE */
+
+    planet.scale.set(2.5,2.5,2.5);
+
+    /* CENTER MODEL */
+
+    const box =
+    new THREE.Box3().setFromObject(planet);
+
+    const center =
+    box.getCenter(new THREE.Vector3());
+
+    planet.position.sub(center);
+
+    /* ADD TO GROUP */
+
+    planetGroup.add(planet);
+
+    console.log("MODEL LOADED");
+
+  },
+
+  undefined,
+
+  (error) => {
+
+    console.error(error);
+
+  }
+
+);
+
+/* ANIMATION */
+
+function animate(){
+
+  requestAnimationFrame(animate);
+
+  /* ROTATION */
+
+  planetGroup.rotation.y += 0.0035;
+
+  renderer.render(scene,camera);
+}
+
+animate();
+
+</script>
+
+</body>
+</html>
